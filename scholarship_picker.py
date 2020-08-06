@@ -13,7 +13,7 @@ for a in f:
 f.close()
 
 while True:
-    selection = input("> ")
+    selection = input("> ").lower()
     if selection == "random":
         if len(scholarships) == 0:
             scholarships = scholarshipspool.copy()
