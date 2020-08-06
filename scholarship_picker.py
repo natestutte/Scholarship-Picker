@@ -1,5 +1,4 @@
 import random
-from os import path
 
 scholarships = []
 scholarshipspool = []
