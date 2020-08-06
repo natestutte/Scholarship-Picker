@@ -21,6 +21,8 @@ The commands are as listed:
   - Pick and print a random scholarship link.
 - **quit**
   - Quits out of the program.
+- **list**
+  - Lists all scholarships on file in order by time added.
 
 ## Contributors
 
