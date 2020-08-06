@@ -16,13 +16,15 @@ The first run will create a "Scholarships.txt" file. The program uses this file 
 
 The commands are as listed:
 - **add**
-  - Add scholarship links to the file
+  - Add scholarship links to the file. Press enter without entering anything to quit out of the command.
 - **random**
-  - Pick and print a random scholarship link 
+  - Pick and print a random scholarship link.
 - **quit**
-  - Quits out of the program
+  - Quits out of the program.
 
-## Authors
+## Contributors
 
 - **Nate Stutte**
   - Creator and Developer
+- **Joseph Lucas**
+  - Tester
