@@ -44,7 +44,7 @@ finally:
                 if name in scholarships.keys():
                     print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
                     continue
-                if name == "":
+                if name == "quit" or name == "":
                     break
                 while True:
                     link = input("Post link of " + name + ": ")
