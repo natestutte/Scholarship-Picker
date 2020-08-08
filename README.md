@@ -1,4 +1,4 @@
-# Scholarship-Picker
+# Scholarship Picker
 
 **A simple way to add and pick a random scholarship**
 
