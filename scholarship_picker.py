@@ -1,9 +1,18 @@
+# Scholarship Picker
+# Designed and developed by Nate Stutte
+# 
+# Project created 8.6.2020
+# Last update was 8.7.2020
+# 
+# Repo : https://github.com/magfmur/Scholarship-Picker
+
 import random
 
 scholarships = {}
 scholarshipspool = []
 scholarshipstrashpool = []
 
+# Importing/Creating 'Scholarship.txt' file
 try:
     f = open("Scholarships.txt", "r")
 except (OSError, IOError):
@@ -11,6 +20,8 @@ except (OSError, IOError):
     f.close()
     f = open("Scholarships.txt", "r")
 finally:
+    
+    # Create dict of scholarship names and links
     for i, a in enumerate(f):
         if i % 2 == 0:
             lastkey = a.rstrip('\n')
@@ -21,9 +32,12 @@ finally:
 
     scholarshipspool = list(scholarships.keys())
 
+    # Main loop
     while True:
         selection = input("> ").lower()
 
+        # Random command : Picks a random scholarship from scholarshippool and adds it to scholarshiptrashpool
+        # If there are no scholarships left in the pool, reset scholarshipspool and clear scholarshiptrashpool
         if selection == "random":
             if len(scholarshipspool) == 0:
                 scholarshipspool = scholarshipstrashpool.copy()
@@ -38,6 +52,9 @@ finally:
                 scholarshipspool.remove(scholarshippicked)
                 print(scholarshippicked, "-", scholarships[scholarshippicked])
         
+        # Add command : Add scholarships name and link
+        # Must enter a unique scholarship with a non-empty link
+        # Stores it in 'Scholarship.txt'
         elif selection == "add":
             while True:
                 name = input("Post name of scholarship to add: ")
@@ -59,16 +76,21 @@ finally:
                 f.write(name + '\n' + link + '\n')
                 f.close()
         
+        # List command : Lists all scholarships stored
+        # Lists them in order that they were added
         elif selection == "list":
             for i, a in enumerate(scholarships.keys()):
                 print(i + 1, ":", a, '-', scholarships[a])
         
+        # Commands yet to be added
         elif selection == "del" or selection == "edit":
             print("To be implemented")
         
+        # Quit command : Quits the program :)
         elif selection == "quit":
             break
         
+        # Invalid command aka any command not recognized
         else:
             print("INVALID OPTION")
         
