@@ -8,7 +8,7 @@
 
 import random
 
-scholarships = {}
+scholarships = []
 scholarshipspool = []
 scholarshipstrashpool = []
 
@@ -24,13 +24,13 @@ finally:
     # Create dict of scholarship names and links
     for i, a in enumerate(f):
         if i % 2 == 0:
-            lastkey = a.rstrip('\n')
-            scholarships[a.rstrip('\n')] = None
+            scholarships.append(dict(("Name", a.rstrip('\n'))))
         else:
-            scholarships[lastkey] = a.rstrip('\n')
+            scholarships[-1]["Link"] = a.rstrip('\n')
     f.close()
 
-    scholarshipspool = list(scholarships.keys())
+    for a in scholarships:
+        scholarshipspool.append(a["Name"])
 
     # Main loop
     while True:
@@ -50,7 +50,12 @@ finally:
             else:
                 scholarshipstrashpool.append(scholarshippicked)
                 scholarshipspool.remove(scholarshippicked)
-                print(scholarshippicked, "-", scholarships[scholarshippicked])
+                for a in scholarships:
+                    if a["Name"] == scholarshippicked:
+                        print(scholarshippicked, "-", a["Link"])
+                        break
+                else:
+                    print(scholarshippicked)
         
         # Add command : Add scholarships name and link
         # Must enter a unique scholarship with a non-empty link
@@ -58,29 +63,31 @@ finally:
         elif selection == "add":
             while True:
                 name = input("Post name of scholarship to add: ")
-                if name in scholarships.keys():
-                    print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
-                    continue
-                if name == "quit" or name == "":
-                    break
-                while True:
-                    link = input("Post link of " + name + ": ")
-                    if link != "":
+                for a in scholarships:
+                    if a["Name"] == name:
+                        print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
                         break
-                    else:
-                        print("Please enter a valid link.")
-                
-                scholarships[name] = link
-                scholarshipspool.append(name)
-                f = open("Scholarships.txt", "a")
-                f.write(name + '\n' + link + '\n')
-                f.close()
+                else:
+                    if name == "quit" or name == "":
+                        break
+                    while True:
+                        link = input("Post link of " + name + ": ")
+                        if link != "":
+                            break
+                        else:
+                            print("Please enter a valid link.")
+                    
+                    scholarships.append(dict([("Name", name), ("Link", link)]))
+                    scholarshipspool.append(name)
+                    f = open("Scholarships.txt", "a")
+                    f.write(name + '\n' + link + '\n')
+                    f.close()
         
         # List command : Lists all scholarships stored
         # Lists them in order that they were added
         elif selection == "list":
-            for i, a in enumerate(scholarships.keys()):
-                print(i + 1, ":", a, '-', scholarships[a])
+            for i, a in enumerate(scholarships):
+                print(i + 1, ":", a["Name"], '-', a["Link"])
         
         # Commands yet to be added
         elif selection == "del" or selection == "edit":
