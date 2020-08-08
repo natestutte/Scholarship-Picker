@@ -23,6 +23,8 @@ The commands are as listed:
   - Lists out all scholarships and their links.
 - **quit**
   - Quits out of the program.
+- **list**
+  - Lists all scholarships on file in order by time added.
 
 ## Contributors
 
