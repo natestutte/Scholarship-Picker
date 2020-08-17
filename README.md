@@ -17,14 +17,14 @@ The first run will create a "Scholarships.txt" file. The program uses this file 
 The commands are as listed:
 - **add**
   - Add scholarship links to the file. Enter "quit" into the name prompt to exit.
+- **del**
+  - Deletes scholarship from file.
 - **random**
-  - Pick and print a random scholarship link.
+  - Pick and print a random scholarship.
 - **list**
   - Lists out all scholarships and their links.
 - **quit**
   - Quits out of the program.
-- **list**
-  - Lists all scholarships on file in order by time added.
 
 ## Contributors
 
