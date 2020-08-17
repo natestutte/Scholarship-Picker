@@ -90,7 +90,8 @@ def choice_del():
         else:
             print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
         
-
+def choice_help():
+    pass
 
 # Importing/Creating 'Scholarship.txt' file
 def import_file():
@@ -136,7 +137,7 @@ def main():
             choice_del()
 
         # Commands yet to be added
-        elif selection == "edit":
+        elif selection == "edit" or selection == "help":
             print("To be implemented")
         
         # Quit command : Quits the program :)
