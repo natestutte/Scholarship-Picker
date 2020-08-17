@@ -45,13 +45,13 @@ def choice_random():
 def choice_add():
     while True:
         name = input("Post name of scholarship to add: ")
+        if name.lower() == "quit" or name == "":
+            break
         for a in scholarships:
             if a["Name"] == name:
                 print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
                 break
         else:
-            if name == "quit" or name == "":
-                break
             while True:
                 link = input("Post link of " + name + ": ")
                 if link != "":
@@ -70,6 +70,27 @@ def choice_add():
 def choice_list():
     for i, a in enumerate(scholarships):
         print(i + 1, ":", a["Name"], '-', a["Link"])
+
+# Del command : Deletes scholarship from list
+# Must give name of scholarship
+def choice_del():
+    while True:
+        name = input("Post name of scholarship to delete: ")
+        if name.lower() == "quit" or name == "":
+            break
+        for a in scholarships:
+            if a["Name"].lower() == name.lower():
+                scholarships.remove(a)
+                if name in scholarshipspool:
+                    scholarshipspool.remove(name)
+                else:
+                    scholarshipstrashpool.remove(name)
+                print(name, "has been removed.")
+                break
+        else:
+            print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
+        
+
 
 # Importing/Creating 'Scholarship.txt' file
 def import_file():
@@ -111,8 +132,11 @@ def main():
         elif selection == "list":
             choice_list()
         
+        elif selection == "del":
+            choice_del()
+
         # Commands yet to be added
-        elif selection == "del" or selection == "edit":
+        elif selection == "edit":
             print("To be implemented")
         
         # Quit command : Quits the program :)
