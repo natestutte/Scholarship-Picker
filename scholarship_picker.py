@@ -81,19 +81,7 @@ def choice_del():
         for a in scholarships:
             if a["Name"].lower() == name.lower():
                 # delete scholarship from file
-                with open("Scholarships.txt", "r") as f:
-                    lines = f.readlines()
-                with open("Scholarships.txt", "w") as f:
-                    for line in lines:
-                        if line.rstrip('\n') != a["Name"] and line.rstrip('\n') != a["Link"]:
-                            f.write(line)
-
-                scholarships.remove(a)
-                if name in scholarshipspool:
-                    scholarshipspool.remove(name)
-                else:
-                    scholarshipstrashpool.remove(name)
-                print(name, "has been removed.")
+                delete_scholarship(a)
                 break
         else:
             print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
@@ -111,6 +99,21 @@ def import_file():
         f = open("Scholarships.txt", "r")
     return f
 
+# Deleting scholarship "ss" from file
+def delete_scholarship(ss):
+    with open("Scholarships.txt", "r") as f:
+        lines = f.readlines()
+    with open("Scholarships.txt", "w") as f:
+        for line in lines:
+            if line.rstrip('\n') != ss["Name"] and line.rstrip('\n') != ss["Link"]:
+                f.write(line)
+    
+    name = ss["Name"]
+    if name in scholarshipspool:
+        scholarshipspool.remove(name)
+    else:
+        scholarshipstrashpool.remove(name)
+    print(name, "has been removed.")
 
 # Main function
 def main():
