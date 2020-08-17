@@ -80,6 +80,14 @@ def choice_del():
             break
         for a in scholarships:
             if a["Name"].lower() == name.lower():
+                # delete scholarship from file
+                with open("Scholarships.txt", "r") as f:
+                    lines = f.readlines()
+                with open("Scholarships.txt", "w") as f:
+                    for line in lines:
+                        if line.rstrip('\n') != a["Name"] and line.rstrip('\n') != a["Link"]:
+                            f.write(line)
+
                 scholarships.remove(a)
                 if name in scholarshipspool:
                     scholarshipspool.remove(name)
