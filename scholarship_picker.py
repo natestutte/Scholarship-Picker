@@ -21,10 +21,10 @@ scholarshipstrashpool = []
 def choice_random():
     global scholarshipspool
     if len(scholarshipspool) == 0:
-            scholarshipspool = scholarshipstrashpool.copy()
-            scholarshipstrashpool.clear()
-            print("Reshuffling scholarship pool...")
-            
+        scholarshipspool = scholarshipstrashpool.copy()
+        scholarshipstrashpool.clear()
+        print("Reshuffling scholarship pool...")
+
     try:
         scholarshippicked = random.choice(scholarshipspool)
     except IndexError:
@@ -38,6 +38,7 @@ def choice_random():
                 break
         else:
             print(scholarshippicked)
+
 
 # choice_add : Add scholarships name and link
 # Must enter a unique scholarship with a non-empty link
@@ -58,18 +59,20 @@ def choice_add():
                     break
                 else:
                     print("Please enter a valid link.")
-            
+
             scholarships.append(dict([("Name", name), ("Link", link)]))
             scholarshipspool.append(name)
             f = open("Scholarships.txt", "a")
             f.write(name + '\n' + link + '\n')
             f.close()
 
+
 # List command : Lists all scholarships stored
 # Lists them in order that they were added
 def choice_list():
     for i, a in enumerate(scholarships):
         print(i + 1, ":", a["Name"], '-', a["Link"])
+
 
 # Del command : Deletes scholarship from list
 # Must give name of scholarship
@@ -85,9 +88,11 @@ def choice_del():
                 break
         else:
             print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
-        
+
+
 def choice_help():
     pass
+
 
 # Importing/Creating 'Scholarship.txt' file
 def import_file():
@@ -99,6 +104,7 @@ def import_file():
         f = open("Scholarships.txt", "r")
     return f
 
+
 # Deleting scholarship "ss" from file
 def delete_scholarship(ss):
     with open("Scholarships.txt", "r") as f:
@@ -107,13 +113,14 @@ def delete_scholarship(ss):
         for line in lines:
             if line.rstrip('\n') != ss["Name"] and line.rstrip('\n') != ss["Link"]:
                 f.write(line)
-    
+
     name = ss["Name"]
     if name in scholarshipspool:
         scholarshipspool.remove(name)
     else:
         scholarshipstrashpool.remove(name)
     print(name, "has been removed.")
+
 
 # Main function
 def main():
@@ -137,24 +144,24 @@ def main():
 
         if selection == "random":
             choice_random()
-        
+
         elif selection == "add":
             choice_add()
-        
+
         elif selection == "list":
             choice_list()
-        
+
         elif selection == "del":
             choice_del()
 
         # Commands yet to be added
         elif selection == "edit" or selection == "help":
             print("To be implemented")
-        
+
         # Quit command : Quits the program :)
         elif selection == "quit":
             break
-        
+
         # Invalid command aka any command not recognized
         else:
             print("INVALID OPTION")
