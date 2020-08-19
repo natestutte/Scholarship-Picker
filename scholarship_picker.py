@@ -89,10 +89,18 @@ def choice_del():
         else:
             print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
 
+m# Commands in progress
+def choice_edit():
+    pass
 
 def choice_help():
     pass
 
+def choice_help(arg):
+    pass
+
+def choice_contributors():
+    pass
 
 # Importing/Creating 'Scholarship.txt' file
 def import_file():
@@ -140,26 +148,26 @@ def main():
 
     # Main loop
     while True:
-        selection = input("> ").lower()
+        selection = input("> ").lower().split(" ")
 
-        if selection == "random":
+        if selection[0] == "random":
             choice_random()
 
-        elif selection == "add":
+        elif selection[0] == "add":
             choice_add()
 
-        elif selection == "list":
+        elif selection[0] == "list":
             choice_list()
 
-        elif selection == "del":
+        elif selection[0] == "del":
             choice_del()
 
         # Commands yet to be added
-        elif selection == "edit" or selection == "help":
+        elif selection[0] == "edit" or selection[0] == "help" or selection[0] == "contributors":
             print("To be implemented")
 
         # Quit command : Quits the program :)
-        elif selection == "quit":
+        elif selection[0] == "quit":
             break
 
         # Invalid command aka any command not recognized
