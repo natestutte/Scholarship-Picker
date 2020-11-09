@@ -8,11 +8,24 @@
 
 
 import random
+import sys
 
 scholarships = []
 scholarshipspool = []
 scholarshipstrashpool = []
 
+def create_scholarship_dict():
+    f = import_file()
+    
+    for i, a in enumerate(f):
+        if i % 2 == 0:
+            scholarships.append(dict({"Name" : a.rstrip('\n')}))
+        else:
+            scholarships[-1]["Link"] = a.rstrip('\n')
+    f.close()
+
+    for a in scholarships:
+        scholarshipspool.append(a["Name"])
 
 # Command functions
 
@@ -39,33 +52,29 @@ def choice_random():
         else:
             print(scholarshippicked)
 
-
 # choice_add : Add scholarships name and link
 # Must enter a unique scholarship with a non-empty link
 # Stores it in 'Scholarship.txt'
 def choice_add():
-    while True:
-        name = input("Post name of scholarship to add: ")
-        if name.lower() == "quit" or name == "":
+    try:
+        name = sys.argv[2]
+    except:
+        return
+    for a in scholarships:
+        if a["Name"] == name:
+            print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
             break
-        for a in scholarships:
-            if a["Name"] == name:
-                print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
-                break
-        else:
-            while True:
-                link = input("Post link of " + name + ": ")
-                if link != "":
-                    break
-                else:
-                    print("Please enter a valid link.")
+    else:
+        try:
+            link = sys.argv[3]
+        except:
+            return
 
-            scholarships.append(dict([("Name", name), ("Link", link)]))
-            scholarshipspool.append(name)
-            f = open("Scholarships.txt", "a")
-            f.write(name + '\n' + link + '\n')
-            f.close()
-
+        scholarships.append(dict([("Name", name), ("Link", link)]))
+        scholarshipspool.append(name)
+        f = open("Scholarships.txt", "a")
+        f.write(name + '\n' + link + '\n')
+        f.close()
 
 # List command : Lists all scholarships stored
 # Lists them in order that they were added
@@ -73,23 +82,22 @@ def choice_list():
     for i, a in enumerate(scholarships):
         print(i + 1, ":", a["Name"], '-', a["Link"])
 
-
 # Del command : Deletes scholarship from list
 # Must give name of scholarship
 def choice_del():
-    while True:
-        name = input("Post name of scholarship to delete: ")
-        if name.lower() == "quit" or name == "":
+    try:
+        del_selection = sys.argv[2]
+    except:
+        return
+    for a in scholarships:
+        if a["Name"].lower() == del_selection.lower():
+            # delete scholarship from file
+            delete_scholarship(a)
             break
-        for a in scholarships:
-            if a["Name"].lower() == name.lower():
-                # delete scholarship from file
-                delete_scholarship(a)
-                break
-        else:
-            print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
+    else:
+        print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
 
-m# Commands in progress
+# Commands in progress
 def choice_edit():
     pass
 
@@ -112,7 +120,6 @@ def import_file():
         f = open("Scholarships.txt", "r")
     return f
 
-
 # Deleting scholarship "ss" from file
 def delete_scholarship(ss):
     with open("Scholarships.txt", "r") as f:
@@ -129,51 +136,31 @@ def delete_scholarship(ss):
         scholarshipstrashpool.remove(name)
     print(name, "has been removed.")
 
-
 # Main function
 def main():
+    try:
+        selection = sys.argv[1]
+    except:
+        return
 
-    f = import_file()
-
-    # Create dict of scholarship names and links
-    for i, a in enumerate(f):
-        if i % 2 == 0:
-            scholarships.append(dict({"Name" : a.rstrip('\n')}))
-        else:
-            scholarships[-1]["Link"] = a.rstrip('\n')
-    f.close()
-
-    for a in scholarships:
-        scholarshipspool.append(a["Name"])
-
-    # Main loop
-    while True:
-        selection = input("> ").lower().split(" ")
-
-        if selection[0] == "random":
-            choice_random()
-
-        elif selection[0] == "add":
-            choice_add()
-
-        elif selection[0] == "list":
-            choice_list()
-
-        elif selection[0] == "del":
-            choice_del()
-
-        # Commands yet to be added
-        elif selection[0] == "edit" or selection[0] == "help" or selection[0] == "contributors":
-            print("To be implemented")
-
-        # Quit command : Quits the program :)
-        elif selection[0] == "quit":
-            break
-
-        # Invalid command aka any command not recognized
-        else:
-            print("INVALID OPTION")
-
+    if selection == "-r":
+        create_scholarship_dict()
+        choice_random()
+    elif selection == "-a":
+        create_scholarship_dict()
+        choice_add()
+    elif selection == "-l":
+        create_scholarship_dict()
+        choice_list()
+    elif selection == "-d":
+        create_scholarship_dict()
+        choice_del()
+    # Commands yet to be added
+    elif selection == "-e" or selection == "-h" or selection == "-c":
+        print("To be implemented")
+    # Invalid command aka any command not recognized
+    else:
+        print("INVALID OPTION")
 
 if __name__ == "__main__":
     main()
