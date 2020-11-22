@@ -62,7 +62,7 @@ def choice_add():
         return
     for a in scholarships:
         if a["Name"] == name:
-            print("Scholarship already exists, please use 'del' command to delete it or 'edit' command to edit it.")
+            print("Scholarship already exists, please use '-d' command to delete it or '-e' command to edit it.")
             break
     else:
         try:
