@@ -59,6 +59,7 @@ def choice_add():
     try:
         name = sys.argv[2]
     except:
+        print("Error: No scholarship name was given. Please enter a scholarship name and link after -a argument.")
         return
     for a in scholarships:
         if a["Name"] == name:
@@ -68,6 +69,7 @@ def choice_add():
         try:
             link = sys.argv[3]
         except:
+            print("Error: No scholarship link was given. Please enter a scholarship link after the name argument.")
             return
 
         scholarships.append(dict([("Name", name), ("Link", link)]))
@@ -79,8 +81,11 @@ def choice_add():
 # List command : Lists all scholarships stored
 # Lists them in order that they were added
 def choice_list():
-    for i, a in enumerate(scholarships):
-        print(i + 1, ":", a["Name"], '-', a["Link"])
+    if scholarships == []:
+        print("Error: List of scholarships is empty, add scholarships first!")
+    else:
+        for i, a in enumerate(scholarships):
+            print(i + 1, ":", a["Name"], '-', a["Link"])
 
 # Del command : Deletes scholarship from list
 # Must give name of scholarship
@@ -88,6 +93,7 @@ def choice_del():
     try:
         del_selection = sys.argv[2]
     except:
+        print("Error: Scholarship not entered. Please provide a scholarship name after -d argument.")
         return
     for a in scholarships:
         if a["Name"].lower() == del_selection.lower():
@@ -95,7 +101,7 @@ def choice_del():
             delete_scholarship(a)
             break
     else:
-        print("Scholarship not found. Make sure scholarship exists or is typed correctly.")
+        print("Error: Scholarship not found. Make sure scholarship exists or is typed correctly.")
 
 # Commands in progress
 def choice_edit():
