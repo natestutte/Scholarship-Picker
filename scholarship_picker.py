@@ -121,7 +121,7 @@ def import_file():
     try:
         f = open("Scholarships.txt", "r")
     except (OSError, IOError):
-        f = open("Scholarships.txt", "x")
+        f = open("Scholarships.txt", "w")
         f.close()
         f = open("Scholarships.txt", "r")
     return f
